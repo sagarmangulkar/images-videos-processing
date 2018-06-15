@@ -3,6 +3,11 @@ package main
 import (
 	"fmt"
 
+	"bufio"
+	"log"
+	"os"
+	//"io/ioutil"
+
 	cl "github.com/mpmlj/clarifai-client-go"
 )
 
@@ -11,9 +16,26 @@ const (
 )
 
 func main() {
-	image := "https://c3.staticflickr.com/4/3372/3557249560_fa83b3c878_o.jpg"
-	resp := PredictImage(image)
-	cl.PP(resp)
+
+	file, err := os.Open("images.txt")
+	if err != nil {
+		log.Fatal(err)
+	}
+	defer file.Close()
+
+	scanner := bufio.NewScanner(file)
+	for scanner.Scan() {
+		image := scanner.Text()
+		fmt.Println(image)
+		resp := PredictImage(image)
+		cl.PP(resp)
+		fmt.Println()
+	}
+
+	if err := scanner.Err(); err != nil {
+		log.Fatal(err)
+	}
+	//image := "https://c3.staticflickr.com/4/3372/3557249560_fa83b3c878_o.jpg"
 }
 
 func PredictImage(image string) *cl.Response {
