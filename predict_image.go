@@ -10,7 +10,9 @@ import (
 )
 
 const (
-	apiKey = "d6d623dad6894b54b6a5feb980edc339"
+	apiKey     = "d6d623dad6894b54b6a5feb980edc339"
+	imagesFile = "images.txt"
+	zero       = 0
 )
 
 type imageValue struct {
@@ -21,7 +23,7 @@ type imageValue struct {
 func main() {
 
 	mp := make(map[string][]imageValue)
-	file, err := os.Open("images.txt")
+	file, err := os.Open(imagesFile)
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -32,7 +34,7 @@ func main() {
 		fmt.Println(image)
 		resp := PredictImage(image)
 
-		output := resp.Outputs[0].Data.Concepts
+		output := resp.Outputs[zero].Data.Concepts
 		for _, element := range output {
 			iv := imageValue{image: image, value: element.Value}
 			mp[element.Name] = insertSort(mp[element.Name], iv)
