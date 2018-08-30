@@ -32,6 +32,7 @@ func main() {
 	for scanner.Scan() {
 		image := scanner.Text()
 		fmt.Println(image)
+		//send POST request and unmarshal that data in some struct
 		resp := PredictImage(image)
 
 		output := resp.Outputs[zero].Data.Concepts
