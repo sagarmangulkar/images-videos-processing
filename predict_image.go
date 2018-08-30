@@ -10,7 +10,7 @@ import (
 )
 
 const (
-	apiKey     = "d6d623dad6894b54b6a5feb980edc339"
+	apiKey     = "MyKey"
 	imagesFile = "images.txt"
 	zero       = 0
 )
